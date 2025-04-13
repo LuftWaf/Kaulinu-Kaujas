@@ -39,10 +39,14 @@ def battle():
     # Game state
     value = 0
     dice_visible = True
-    HP = 6  # Player HP if not getting it in data form rn xd (Please import data)
+    HP = 6  # Player HP
+    enemy_HP = 5  # Enemy HP
     HP_decrease = False  # To prevent multiple HP decreases
     show_result_delay = 0
     last_click_time = 0 # To prevent rapid clicking
+    roll_count = 0  # Track number of player rolls
+    enemy_attack_delay = 0  # Delay before enemy attacks
+    pending_enemy_damage = 0  # Damage to apply after slash animation
     
     # Colors
     WHITE = (255, 255, 255)
@@ -50,6 +54,8 @@ def battle():
     BUTTON_COLOR = (0, 128, 0)  
     HOVER_COLOR = (0, 200, 0)
     DISABLED_COLOR = (100, 100, 100)
+    RED = (255, 0, 0)
+    GREEN = (0, 255, 0)
 
     # Load all assets first
     try:
@@ -93,10 +99,17 @@ def battle():
         # Animations
         dice_frames = load_gif_frames("gif_assets/dice.gif")
         slash_frames = load_gif_frames("gif_assets/slash.gif")
+        enemy_attack_frames = load_gif_frames("gif_assets/slash.gif")  # You might want a different animation for enemy attack
+        
+        # Enemies
+        enemy = pygame.image.load("dice_end_assets/image.png").convert()
+        screen.blit(enemy, (width // 2 - enemy.get_width() // 2, height // 2 - 50))
+
     except Exception as e:
         print(f"Error loading assets: {e}")
         pygame.quit()
         sys.exit()
+    
 
     # Animation control
     dice_playing = False
@@ -108,6 +121,11 @@ def battle():
     current_slash_frame = 0
     slash_frame_counter = 0
     slash_frame_delay = 3  # Now actually used
+    
+    enemy_attacking = False
+    current_enemy_attack_frame = 0
+    enemy_attack_frame_counter = 0
+    enemy_attack_frame_delay = 3
     
     # Fonts
     small_font = pygame.font.Font(None, 50)
@@ -133,18 +151,20 @@ def battle():
                 if (current_time - last_click_time > 1200 and 
                     not dice_playing and 
                     not slash_playing and 
+                    not enemy_attacking and
                     button_rect.collidepoint(event.pos)):
                     last_click_time = current_time
                     dice_playing = True
                     dice_visible = False
-                    value = random.randint(1, 3)  # 1 = 2DMG, 2 = HEART, 3 = -1Heart, 4 = SHIELD, 5 = Damage, 6 = Miss
+                    value = random.randint(1, 6)  # 1 = 2DMG, 2 = HEART, 3 = -1Heart, 4 = SHIELD, 5 = Damage, 6 = Miss
                     current_dice_frame = 0
                     dice_frame_counter = 0
                     show_result_delay = 0
                     HP_decrease = False
-                    print(HP)
+                    roll_count += 1
+                    print(f"Player HP: {HP}, Enemy HP: {enemy_HP}")
 
-        # Clear screen
+        # Clear screen and add new background
         screen.fill(BLACK)
         if HP == 6:
             screen.blit(background, (0, 0))
@@ -169,7 +189,7 @@ def battle():
                         subprocess.run(["python", "defeat.py"])
                         sys.exit()
         
-        # Handle dice animation (now using frame delay properly)
+        # Handle dice animation
         if dice_playing:
             dice_frame_counter += 1
             if dice_frame_counter >= dice_frame_delay:
@@ -180,8 +200,10 @@ def battle():
                     dice_visible = True
                     if value == 1:
                         show_result_delay = 30  # ~0.5 seconds delay
+                        pending_enemy_damage = 2  # 2 damage to enemy (applied after slash)
                     if value == 5:
                         show_result_delay = 30
+                        pending_enemy_damage = 1  # 1 damage to enemy (applied after slash)
             
             # Show current frame
             frame = pygame.transform.scale(dice_frames[current_dice_frame % len(dice_frames)], (200, 200))
@@ -210,15 +232,26 @@ def battle():
             
             if show_result_delay > 0:
                 show_result_delay -= 1
-                if show_result_delay == 0:
+                if show_result_delay == 0 and (value == 1 or value == 5):
                     slash_playing = True
                     current_slash_frame = 0
                     slash_frame_counter = 0
             
+            # Check if enemy should attack (after every 2 rolls)
+            if roll_count % 2 == 0 and roll_count > 0 and not enemy_attacking and not slash_playing:
+                if enemy_attack_delay <= 0:
+                    enemy_attack_delay = 60  # ~1 second delay before enemy attacks
+                else:
+                    enemy_attack_delay -= 1
+                    if enemy_attack_delay == 0:
+                        enemy_attacking = True
+                        current_enemy_attack_frame = 0
+                        enemy_attack_frame_counter = 0
+                        # Enemy will deal damage after attack animation
+                        pending_enemy_damage = -1  # Negative for player damage
+                        roll_count = 0  # Reset roll count after attack
         
-        
-
-        # Handle slash animation (now using frame delay)
+        # Handle slash animation (player attacking enemy)
         if slash_playing:
             slash_frame_counter += 1
             if slash_frame_counter >= slash_frame_delay:
@@ -226,14 +259,38 @@ def battle():
                 current_slash_frame += 1
                 if current_slash_frame >= len(slash_frames):
                     slash_playing = False
+                    # Apply damage to enemy after animation completes
+                    if pending_enemy_damage > 0:
+                        enemy_HP -= pending_enemy_damage
+                        pending_enemy_damage = 0
+                        print(f"Enemy took {pending_enemy_damage} damage! Enemy HP: {enemy_HP}")
             
             # Show current frame
             if current_slash_frame < len(slash_frames):
                 frame = pygame.transform.scale(slash_frames[current_slash_frame], (400, 400))
                 screen.blit(frame, (width//2 + 200, height//2 - 300))
 
+        # Handle enemy attack animation
+        if enemy_attacking:
+            enemy_attack_frame_counter += 1
+            if enemy_attack_frame_counter >= enemy_attack_frame_delay:
+                enemy_attack_frame_counter = 0
+                current_enemy_attack_frame += 1
+                if current_enemy_attack_frame >= len(enemy_attack_frames):
+                    enemy_attacking = False
+                    # Apply damage to player after animation completes
+                    if pending_enemy_damage < 0:
+                        HP += pending_enemy_damage  # pending_enemy_damage is negative
+                        pending_enemy_damage = 0
+                        print(f"Player took {-pending_enemy_damage} damage! Player HP: {HP}")
+            
+            # Show current frame
+            if current_enemy_attack_frame < len(enemy_attack_frames):
+                frame = pygame.transform.scale(enemy_attack_frames[current_enemy_attack_frame], (400, 400))
+                screen.blit(frame, (width//2 - 600, height//2 - 300))  # Show on left side for enemy attack
+
         # Draw button with proper state
-        button_active = not dice_playing and not slash_playing
+        button_active = not dice_playing and not slash_playing and not enemy_attacking
         button_color = (HOVER_COLOR if button_rect.collidepoint(pygame.mouse.get_pos()) and button_active 
                        else BUTTON_COLOR if button_active 
                        else DISABLED_COLOR)
@@ -242,7 +299,30 @@ def battle():
         button_text = small_font.render("Mest kauliņu", True, WHITE)
         screen.blit(button_text, (button_x + button_width//2 - button_text.get_width()//2,
                                 button_y + button_height//2 - button_text.get_height()//2))
-
+        
+        # Draw the enemy
+        if enemy:
+            screen.blit(enemy, (width // 2 + 410 - enemy.get_width() // 2, height // 2 - 225))
+        
+        # Draw enemy health bar
+        enemy_health_width = 200
+        enemy_health_height = 20
+        enemy_health_x = width // 2 + 410 - enemy_health_width // 2
+        enemy_health_y = height // 2 - 250
+        
+        # Background of health bar (empty part)
+        pygame.draw.rect(screen, RED, (enemy_health_x, enemy_health_y, enemy_health_width, enemy_health_height))
+        # Current health
+        current_enemy_health_width = max(0, (enemy_health_width * enemy_HP) // 5)
+        pygame.draw.rect(screen, GREEN, (enemy_health_x, enemy_health_y, current_enemy_health_width, enemy_health_height))
+        
+        # Check if enemy is defeated
+        if enemy_HP <= 0:
+            fade_to_black(screen, width, height)
+            pygame.quit()
+            subprocess.run(["python", "main.py"])  
+            sys.exit()
+        
         pygame.display.flip()
         clock.tick(60)
 
