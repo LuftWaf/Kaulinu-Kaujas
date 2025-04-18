@@ -1,4 +1,4 @@
-import pygame
+mport pygame
 import sys
 import os
 import subprocess
@@ -50,7 +50,7 @@ def main_game():
     balls = [
         {"pos": (50, 630), "completed": True, "clickable": False},  # Starting ball
         {"pos": (100, 474), "completed": False, "clickable": True},  # First pathway ball (b1)
-        {"pos": (150, 320), "completed": False, "clickable": False}, # b2
+        {"pos": (150, 320), "completed": False, "clickable": True}, # b2
         {"pos": (270, 230), "completed": False, "clickable": False}, # b3 (boss battle)
         {"pos": (375, 333), "completed": False, "clickable": False}, # b4
         {"pos": (485, 470), "completed": False, "clickable": False}, # b5
@@ -82,10 +82,6 @@ def main_game():
                             if i < len(balls) - 1:  # If not the last ball
                                 balls[i+1]["clickable"] = True  # Unlock the next ball
 
-                    if ball_rect.collidepoint(event.pos) and ball["clickable"]:
-                         pygame.quit()
-                         subprocess.run(["python", "battle.py"])  # Run the battle scene
-                         sys.exit()
 
         # background
         screen.blit(background, (0, 0))
