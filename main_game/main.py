@@ -9,7 +9,20 @@ def battle_phase(ball_number):
     Placeholder for the battle phase
     """
     print(f"Entering battle phase for ball {ball_number}")
-    return True
+    fight_scenes = {
+        1: "battle.py",
+        2: "battle1.py"
+    }
+    fight_scene = fight_scenes.get(ball_number, None)
+    if fight_scene:
+        pygame.quit()
+        subprocess.run(["python", fight_scene])  # Run the specific battle scene
+        sys.exit()
+    else:
+        print(f"No fight scene defined for ball {ball_number}")
+        return False
+
+
 
 def create_dimmed_image(image, alpha=128):
     dimmed_image = image.copy()
@@ -69,10 +82,10 @@ def main_game():
                             if i < len(balls) - 1:  # If not the last ball
                                 balls[i+1]["clickable"] = True  # Unlock the next ball
 
-                    # if ball_rect.collidepoint(event.pos) and ball["clickable"]:
-                    #     pygame.quit()
-                    #     subprocess.run(["python", "battle.py"])  # Run the battle scene
-                    #     sys.exit()
+                    if ball_rect.collidepoint(event.pos) and ball["clickable"]:
+                         pygame.quit()
+                         subprocess.run(["python", "battle.py"])  # Run the battle scene
+                         sys.exit()
 
         # background
         screen.blit(background, (0, 0))
