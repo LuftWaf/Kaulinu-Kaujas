@@ -102,10 +102,9 @@ def battle():
         enemy_attack_frames = load_gif_frames("gif_assets/inverted_slash.gif")
         
         # Enemies
-        enemy = pygame.image.load("enemy_assets/golem.png")
+        enemy = pygame.image.load("enemy_assets/bird.png")
         enemy = pygame.transform.scale(enemy, (400, 550))
-      
-        # screen.blit(enemy, (width // 2 - enemy.get_width() // 2, height // 2 - 200)) KO SIS KODS SEIT DARA
+    
 
     except Exception as e:
         print(f"Error loading assets: {e}")
@@ -194,7 +193,7 @@ def battle():
                         sys.exit()
 
         if enemy:
-            screen.blit(enemy, (width // 2 + 410 - enemy.get_width() // 2, height // 2 - 400))
+            screen.blit(enemy, (width // 2 + 510 - enemy.get_width() // 2, height // 2 - 360))
         
         # Handle dice animation
         if dice_playing:
@@ -320,10 +319,10 @@ def battle():
         
         
         # Draw enemy health bar
-        enemy_health_width = 1000
+        enemy_health_width = 200
         enemy_health_height = 20
-        enemy_health_x = width // 2  - enemy_health_width // 2
-        enemy_health_y = height // 2 - 420
+        enemy_health_x = width // 2  - enemy_health_width // 2  + 400
+        enemy_health_y = height // 2 - 350
         
         # Background of health bar (empty part)
         pygame.draw.rect(screen, RED, (enemy_health_x, enemy_health_y, enemy_health_width, enemy_health_height))
