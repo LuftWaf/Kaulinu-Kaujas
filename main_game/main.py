@@ -1,4 +1,4 @@
-mport pygame
+import pygame
 import sys
 import os
 import subprocess
@@ -11,7 +11,9 @@ def battle_phase(ball_number):
     print(f"Entering battle phase for ball {ball_number}")
     fight_scenes = {
         1: "battle.py",
-        2: "battle1.py"
+        2: "battle1.py",
+        3: "battle2.py",
+        4: "battle3.py",
     }
     fight_scene = fight_scenes.get(ball_number, None)
     if fight_scene:
@@ -50,7 +52,7 @@ def main_game():
     balls = [
         {"pos": (50, 630), "completed": True, "clickable": False},  # Starting ball
         {"pos": (100, 474), "completed": False, "clickable": True},  # First pathway ball (b1)
-        {"pos": (150, 320), "completed": False, "clickable": True}, # b2
+        {"pos": (150, 320), "completed": False, "clickable": False}, # b2
         {"pos": (270, 230), "completed": False, "clickable": False}, # b3 (boss battle)
         {"pos": (375, 333), "completed": False, "clickable": False}, # b4
         {"pos": (485, 470), "completed": False, "clickable": False}, # b5
