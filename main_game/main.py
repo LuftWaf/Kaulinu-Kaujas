@@ -2,6 +2,7 @@ import pygame
 import sys
 import os
 import subprocess
+import json
 
 
 def battle_phase(ball_number):
@@ -65,6 +66,15 @@ def main_game():
     boss_ball = [
         {"pos": (1265, 355), "completed": False, "clickable": False}, # b9 (final boss)
     ]
+
+    # with open('player_data.json', 'r') as json_file:
+    #         player_data = json.load(json_file)
+    #         print(player_data)
+    
+    # if player_data["completed_stage_amount"] == 1:
+    #     balls[1]["completed"] = True
+    #     balls[1]["clickable"] = False
+    #     balls[2]["clickable"] = True
 
     running = True
     while running:
