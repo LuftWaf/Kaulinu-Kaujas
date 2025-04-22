@@ -3,7 +3,8 @@ import sys
 import random
 from PIL import Image, ImageSequence
 import subprocess
-import time 
+import time
+import json
 
 def fade_to_black(screen, width, height, duration=3000):
     """Fade the screen to black."""
@@ -139,7 +140,11 @@ def battle():
     clock = pygame.time.Clock()
     running = True
     shield_active = False
-    
+
+    with open('player_data.json', 'r') as json_file:
+            player_data = json.load(json_file)
+            print(player_data)
+
     while running:
         current_time = pygame.time.get_ticks()
         
@@ -329,12 +334,15 @@ def battle():
         # Current health
         current_enemy_health_width = max(0, (enemy_health_width * enemy_HP) // 5)
         pygame.draw.rect(screen, GREEN, (enemy_health_x, enemy_health_y, current_enemy_health_width, enemy_health_height))
-        
         # Check if enemy is defeated
         if enemy_HP <= 0:
             fade_to_black(screen, width, height)
             pygame.quit()
-            subprocess.run(["python", "main.py"])  
+            subprocess.run(["python", "main.py"])
+            if player_data["completed_stage_amount"] < 1:
+                with open('player_data.json', 'w') as json_file:
+                    player_data["completed_stage_amount"] += 1
+                    json.dump(player_data, json_file)
             sys.exit()
         
         pygame.display.flip()
