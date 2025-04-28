@@ -2,37 +2,22 @@ import json
 import os
 
 class Player:
-    def __init__(self, hp=5, hearts=5):
+
+    
+    def __init__(self, hp=5, hearts=5, cs=0):
         self.hp = hp            # Health points in battle scene
         self.hearts = hearts    # Hearts on the main screen
-        self.max_hearts = 5     # Maximum hearts the player can have
-    
-    # Method to reduce the player's HP
-    def take_damage(self, amount):
-        self.hp -= amount
-        if self.hp <= 0:
-            self.hp = 0
-            self.lose_heart()
-    
-    # Method to heal the player (in case of healing during the battle)
-    def heal(self, amount):
-        self.hp += amount
-        if self.hp > self.max_hearts:
-            self.hp = self.max_hearts
-    
+        self.max_hearts = 5 
+        self.completed_stages = cs    # Maximum hearts the player can have
     # Method to reduce the hearts when the player loses a battle
     def lose_heart(self):
         if self.hearts > 0:
             self.hearts -= 1
     
-    # Method to gain a heart (in case of recovery in the main scene)
-    def gain_heart(self):
-        if self.hearts < self.max_hearts:
-            self.hearts += 1
-    
+ 
     # Method to save the player's data to an external JSON file
     def save_data(self, filename="player_data.json"):
-        data = {"hp": self.hp, "hearts": self.hearts}
+        data = {"hp": self.hp, "hearts": self.hearts, "completed_stages": self.completed_stages}
         with open(filename, "w") as f:
             json.dump(data, f)
     
@@ -50,20 +35,14 @@ class Player:
     def reset(self):
         self.hp = self.max_hearts
         self.hearts = self.max_hearts
+        self.completed_stages = 0
 
+    def reset_player_data(filename="player_data.json"):
+        player = Player()  # Create a new player with default values
+        player.reset()     # Reset the player's data
+        player.save_data(filename)  # Save the reset data to the JSON file
 # Example Usage
-player = Player.load_data()  # Load player's data if available
+# player = Player.load_data()  # Load player's data if available
 
-# When player loses a battle
-player.take_damage(1)  # This reduces HP and may cause the player to lose a heart
-
-# When player wins or heals in the battle
-player.heal(1)  # This restores HP (up to max hearts)
-
-# Saving the player's progress after changes
-player.save_data()
-
-# If the player loses all hearts, reset the data and let them start fresh
-if player.hearts == 0:
-    player.reset()
-    player.save_data()  # Reset the file after losing all hearts
+# # Saving the player's progress after changes
+# player.save_data()
