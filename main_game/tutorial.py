@@ -2,6 +2,7 @@ import pygame
 import sys
 import subprocess
 import textwrap
+from data_management import Player
 
 def render_wrapped_text(surface, text, font, color, x, y, max_width, line_spacing=5):
     wrapped_lines = textwrap.wrap(text, width=50)  # Adjust width as needed
@@ -14,7 +15,7 @@ def victory_screen():
     width, height = 1440, 900
     screen = pygame.display.set_mode((width, height))
     pygame.display.set_caption("Spēles Pamācība")
-
+    
     # Colors
     WHITE = (255, 255, 255)
     BLACK = (0, 0, 0)
@@ -91,6 +92,7 @@ def victory_screen():
                     sys.exit()
                 if start_button_rect.collidepoint(event.pos):
                     # close the rules screen and go straight into the game screen
+                    Player.reset_player_data()
                     pygame.quit()
                     subprocess.run(["python", "main.py"])
 
