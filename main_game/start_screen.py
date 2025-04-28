@@ -9,6 +9,7 @@ def start_screen():
     screen = pygame.display.set_mode((width, height))
     pygame.display.set_caption("Kauliņu Kaujas")
 
+
     # Colors
     WHITE = (255, 255, 255)
     BLACK = (0, 0, 0)
@@ -61,7 +62,7 @@ def start_screen():
     rules_button_y = height // 2 - rules_button_height // 2 - 150  # Move down to make space for the first button
     rules_button_rect = pygame.Rect(rules_button_x, rules_button_y, rules_button_width, rules_button_height)
 
-    
+   
     running = True
     while running:
         for event in pygame.event.get():
@@ -89,6 +90,7 @@ def start_screen():
                     sys.exit()
 
                 elif rules_button_rect.collidepoint(event.pos):
+                      # Reset player data
                     pygame.quit()
                     subprocess.run(["python", "tutorial.py"]) # run the tutorial game scene
                     sys.exit()
