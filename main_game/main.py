@@ -11,10 +11,10 @@ def battle_phase(ball_number):
     """
     print(f"Entering battle phase for ball {ball_number}")
     fight_scenes = {
-        1: "battle.py",
-        2: "battle1.py",
-        3: "battle2.py",
-        4: "battle3.py",
+        1: "battle_assets/battle1.py",
+        2: "battle_assets/battle2.py",
+        3: "battle_assets/battle3.py",
+        4: "battle_assets/battle4.py",
     }
     fight_scene = fight_scenes.get(ball_number, None)
     if fight_scene:
@@ -67,14 +67,69 @@ def main_game():
         {"pos": (1265, 355), "completed": False, "clickable": False}, # b9 (final boss)
     ]
 
-    # with open('player_data.json', 'r') as json_file:
-    #         player_data = json.load(json_file)
-    #         print(player_data)
+    with open('player_data.json', 'r') as json_file:
+             player_data = json.load(json_file)
+             print(player_data)
     
-    # if player_data["completed_stage_amount"] == 1:
-    #     balls[1]["completed"] = True
-    #     balls[1]["clickable"] = False
-    #     balls[2]["clickable"] = True
+    if player_data["completed_stages"] == 1:
+        balls[1]["completed"] = True
+        balls[1]["clickable"] = False
+
+        balls[2]["clickable"] = True
+
+    if player_data["completed_stages"] == 2:
+        balls[1]["completed"] = True
+        balls[1]["clickable"] = False
+
+        balls[2]["completed"] = True
+        balls[2]["clickable"] = False
+
+        balls[3]["clickable"] = True
+
+    if player_data["completed_stages"] == 3:
+        balls[1]["completed"] = True
+        balls[1]["clickable"] = False
+
+        balls[2]["completed"] = True
+        balls[2]["clickable"] = False
+
+        balls[3]["completed"] = True
+        balls[3]["clickable"] = False
+
+        balls[4]["clickable"] = True
+
+    if player_data["completed_stages"] == 4:
+        balls[1]["completed"] = True
+        balls[1]["clickable"] = False
+
+        balls[2]["completed"] = True
+        balls[2]["clickable"] = False
+
+        balls[3]["completed"] = True
+        balls[3]["clickable"] = False
+
+        balls[4]["completed"] = True
+        balls[4]["clickable"] = False
+
+        balls[5]["clickable"] = True
+
+    if player_data["completed_stages"] == 5:
+        balls[1]["completed"] = True
+        balls[1]["clickable"] = False
+
+        balls[2]["completed"] = True
+        balls[2]["clickable"] = False
+
+        balls[3]["completed"] = True
+        balls[3]["clickable"] = False
+
+        balls[4]["completed"] = True
+        balls[4]["clickable"] = False
+
+        balls[5]["completed"] = True
+        balls[5]["clickable"] = False
+
+        balls[6]["clickable"] = True
 
     running = True
     while running:
