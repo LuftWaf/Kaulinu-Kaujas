@@ -15,6 +15,11 @@ def battle_phase(ball_number):
         2: "battle_assets/battle2.py",
         3: "battle_assets/battle3.py",
         4: "battle_assets/battle4.py",
+        5: "battle_assets/battle5.py",
+        6: "battle_assets/battle6.py",
+        7: "battle_assets/battle7.py",
+        8: "battle_assets/battle8.py",
+        9: "battle_assets/boss_battle.py",
     }
     fight_scene = fight_scenes.get(ball_number, None)
     if fight_scene:
@@ -60,10 +65,6 @@ def main_game():
         {"pos": (642, 553), "completed": False, "clickable": False}, # b6 (boss battle)
         {"pos": (942, 520), "completed": False, "clickable": False}, # b7
         {"pos": (1103, 557), "completed": False, "clickable": False}, # b8
-        {"pos": (1265, 355), "completed": False, "clickable": False}, # b9 (final boss)
-    ]
-
-    boss_ball = [
         {"pos": (1265, 355), "completed": False, "clickable": False}, # b9 (final boss)
     ]
 
@@ -130,6 +131,78 @@ def main_game():
         balls[5]["clickable"] = False
 
         balls[6]["clickable"] = True
+
+    if player_data["completed_stages"] == 6:
+        balls[1]["completed"] = True
+        balls[1]["clickable"] = False
+
+        balls[2]["completed"] = True
+        balls[2]["clickable"] = False
+
+        balls[3]["completed"] = True
+        balls[3]["clickable"] = False
+
+        balls[4]["completed"] = True
+        balls[4]["clickable"] = False
+
+        balls[5]["completed"] = True
+        balls[5]["clickable"] = False
+
+        balls[6]["completed"] = True
+        balls[6]["clickable"] = False
+
+        balls[7]["clickable"] = True
+
+    if player_data["completed_stages"] == 7:
+        balls[1]["completed"] = True
+        balls[1]["clickable"] = False
+
+        balls[2]["completed"] = True
+        balls[2]["clickable"] = False
+
+        balls[3]["completed"] = True
+        balls[3]["clickable"] = False
+
+        balls[4]["completed"] = True
+        balls[4]["clickable"] = False
+
+        balls[5]["completed"] = True
+        balls[5]["clickable"] = False
+
+        balls[6]["completed"] = True
+        balls[6]["clickable"] = False
+
+        balls[7]["completed"] = True
+        balls[7]["clickable"] = False
+
+        balls[8]["clickable"] = True
+
+    if player_data["completed_stages"] == 8:
+        balls[1]["completed"] = True
+        balls[1]["clickable"] = False
+
+        balls[2]["completed"] = True
+        balls[2]["clickable"] = False
+
+        balls[3]["completed"] = True
+        balls[3]["clickable"] = False
+
+        balls[4]["completed"] = True
+        balls[4]["clickable"] = False
+
+        balls[5]["completed"] = True
+        balls[5]["clickable"] = False
+
+        balls[6]["completed"] = True
+        balls[6]["clickable"] = False
+
+        balls[7]["completed"] = True
+        balls[7]["clickable"] = False
+
+        balls[8]["completed"] = True
+        balls[8]["clickable"] = False
+
+        balls[9]["clickable"] = True
 
     running = True
     while running:
