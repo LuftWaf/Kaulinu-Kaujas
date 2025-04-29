@@ -80,6 +80,7 @@ def victory_screen():
     
     running = True
     while running:
+        screen.fill(WHITE)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -99,7 +100,7 @@ def victory_screen():
         
 
         # Clear the screen
-        screen.fill(BLACK)
+       
 
         # Draw the background image
         if background_image:
