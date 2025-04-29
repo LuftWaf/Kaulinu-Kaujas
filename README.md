@@ -18,12 +18,12 @@ Kauliņš tiek izmantots, lai noteiktu cīņas rezultātu. Metot kauliņu, ir ie
 
 * Netrāpīt (Spēlētājs neko neizdara). 
 
-* Spēlētājs sāk cīņu ar 3 sirsniņām katrā līmenī līdz nākošajai kartes daļai(otrai), kur sāk ar 5 sirsniņām. 
+* Pirmajā un otrajā līmenī spēlētājam uz kartes sirsniņas nav. Pirmajā līmenī katru reizi kad zaudē cīņas fāzē, tad jācīnas ar to pašu pretinieku vēlreiz, līdz tiek tālāk, bet pēdējā bossa līmenī, ja zaudē cīņu tad spēlētājs tiek atgriezts 2 cīņas atpakaļ, kuras arī ir jāuzvar. Otrajā kartes daļā, spēlētājam ir 12 sirsniņas cīņas fāzē, bet ja uzvar minibossu un zaud nākamos līmeņos līdz nākamam minibossam, tad spēlētājam nav jāsāk spēle no sākuma, bet var atgriezties līmenī pēc minibossa.
 
 <br></br> 
-Pretinieks met to pašu kauliņu tikai to spēlētajs neredz un attiecīgi izdara darbību, bet kauju sāk spēlētājs. Pretinieka metamais kauliņš sastāv no visām tām kas ir iepriekš minētas, tikai “Vairogs” ir izmanīts pret “Netrāpīt” 
+Pretinieks uzbrūk pēc 2 spēlētāja metieniem atkarīgi no , bet kauju sāk spēlētājs. Pretinieka metamais kauliņš sastāv no visām tām kas ir iepriekš minētas, tikai “Vairogs” ir izmanīts pret “Netrāpīt” 
 
-Pretiniekam cīņas sākumā, attiecīgi no līmeņa ir, piemēram, pirmajā līmenī 2 sirsniņas, un uz katru nākošo līmeni, no līmeņa skaita +1 sirsniņa, izņemot bossa līmenī, kur būs 10 sirsniņas. 
+Pretiniekam cīņas sākumā, attiecīgi no līmeņa ir, piemēram, pirmajā līmenī 5 sirsniņas, un uz katru nākošo līmeni, no līmeņa skaita +1 sirsniņa, izņemot bossa līmenī, kur būs 20 sirsniņas, kā arī mini bossa līmenī būs 10 un 12 sirsniņas.
 
 <hr></hr>
 <h2><em> Kā notiek spēles progresēšana?</em></h2>
