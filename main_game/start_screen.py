@@ -57,7 +57,7 @@ def start_screen():
     defeat_button_rect = pygame.Rect(defeat_button_x, defeat_button_y, defeat_button_width, defeat_button_height)
 
      #  "Rules" button rectangle
-    rules_button_width, rules_button_height = 230, 100
+    rules_button_width, rules_button_height = 280, 100
     rules_button_x = width // 2 - rules_button_width // 2
     rules_button_y = height // 2 - rules_button_height // 2 - 150  # Move down to make space for the first button
     rules_button_rect = pygame.Rect(rules_button_x, rules_button_y, rules_button_width, rules_button_height)
@@ -113,7 +113,7 @@ def start_screen():
             pygame.draw.rect(screen, BUTTON_COLOR, start_button_rect)  # Default color
 
         # Render the "Sākt" button text
-        start_text = small_font.render("Sākt", True, WHITE)
+        start_text = small_font.render("Turpināt", True, WHITE)
         screen.blit(start_text, (start_button_x + start_button_width // 2 - start_text.get_width() // 2,
                                  start_button_y + start_button_height // 2 - start_text.get_height() // 2))
         # Render the "End" button text
@@ -166,7 +166,7 @@ def start_screen():
                                    defeat_button_y + defeat_button_height // 2 - defeat_text.get_height() // 2))
         
          # Render the "Rules" button text
-        rules_text = small_font.render("Noteikumi", True, WHITE)
+        rules_text = small_font.render("Sākt no jauna", True, WHITE)
         screen.blit(rules_text, (rules_button_x + rules_button_width // 2 - rules_text.get_width() // 2,
                                    rules_button_y + rules_button_height // 2 - rules_text.get_height() // 2))
 
