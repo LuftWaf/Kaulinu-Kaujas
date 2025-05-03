@@ -47,7 +47,7 @@ def end_screen():
                 if button_rect.collidepoint(event.pos):
                     # Close the end screen and return to the start screen
                     pygame.quit()
-                    subprocess.run(["python", "start_screen.py"])  # Run the start_screen.py script
+                    subprocess.run(["python3", "start_screen.py"])  # Run the start_screen.py script
                     sys.exit()
 
         # Clear the screen

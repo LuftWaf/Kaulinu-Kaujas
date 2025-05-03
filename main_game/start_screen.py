@@ -76,23 +76,23 @@ def start_screen():
                 # Check if the mouse click is within the "Victory Screen" button area
                 elif victory_button_rect.collidepoint(event.pos):
                     pygame.quit()
-                    subprocess.run(["python", "victory.py"])  # Run the victory.py script
+                    subprocess.run(["python3", "victory.py"])  # Run the victory.py script
                     sys.exit()
 
                 elif end_button_rect.collidepoint(event.pos):
                     pygame.quit()
-                    subprocess.run(["python", "game_end_final.py"]) # run the end game scene that appears after a boss has defeated the player
+                    subprocess.run(["python3", "game_end_final.py"]) # run the end game scene that appears after a boss has defeated the player
                     sys.exit()
 
                 elif defeat_button_rect.collidepoint(event.pos):
                     pygame.quit()
-                    subprocess.run(["python", "defeat.py"]) # run the defeat game scene that appears after the player's hearts have run out
+                    subprocess.run(["python3", "defeat.py"]) # run the defeat game scene that appears after the player's hearts have run out
                     sys.exit()
 
                 elif rules_button_rect.collidepoint(event.pos):
                       # Reset player data
                     pygame.quit()
-                    subprocess.run(["python", "tutorial.py"]) # run the tutorial game scene
+                    subprocess.run(["python3", "tutorial.py"]) # run the tutorial game scene
                     sys.exit()
 
         # Clear the screen

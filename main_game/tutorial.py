@@ -89,13 +89,13 @@ def victory_screen():
                 if back_button_rect.collidepoint(event.pos):
                     # Close the rules screen and return to the start screen
                     pygame.quit()
-                    subprocess.run(["python", "start_screen.py"])  # Run the start_screen.py script
+                    subprocess.run(["python3", "start_screen.py"])  # Run the start_screen.py script
                     sys.exit()
                 if start_button_rect.collidepoint(event.pos):
                     # close the rules screen and go straight into the game screen
                     Player.reset_player_data()
                     pygame.quit()
-                    subprocess.run(["python", "main.py"])
+                    subprocess.run(["python3", "main.py"])
 
         
 

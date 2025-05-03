@@ -44,7 +44,7 @@ def defeat():
                 if button_rect.collidepoint(event.pos):
                     # Close the end screen and return to the start screen
                     pygame.quit()
-                    subprocess.run(["python", "main.py"])  # Run the start_screen.py script
+                    subprocess.run(["python3", "main.py"])  # Run the start_screen.py script
                     sys.exit()
 
         # Clear the screen
