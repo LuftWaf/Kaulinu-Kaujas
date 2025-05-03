@@ -104,9 +104,8 @@ def battle():
         
         # Enemies
         enemy = pygame.image.load("enemy_assets/worm.png")
-        enemy = pygame.transform.scale(enemy, (400, 550))
+        enemy = pygame.transform.scale(enemy, (320, 425))
       
-        # screen.blit(enemy, (width // 2 - enemy.get_width() // 2, height // 2 - 200)) KO SIS KODS SEIT DARA
 
     except Exception as e:
         print(f"Error loading assets: {e}")
@@ -199,7 +198,7 @@ def battle():
                         sys.exit()
 
         if enemy:
-            screen.blit(enemy, (width // 2 + 410 - enemy.get_width() // 2, height // 2 - 400))
+            screen.blit(enemy, (width // 2 + 410 - enemy.get_width() // 2, height // 2 - 250))
         
         # Handle dice animation
         if dice_playing:
@@ -328,7 +327,7 @@ def battle():
         enemy_health_width = 200
         enemy_health_height = 20
         enemy_health_x = width // 2  - enemy_health_width // 2  + 400
-        enemy_health_y = height // 2 - 420
+        enemy_health_y = height // 2 - 220
         
         # Background of health bar (empty part)
         pygame.draw.rect(screen, RED, (enemy_health_x, enemy_health_y, enemy_health_width, enemy_health_height))

@@ -337,7 +337,7 @@ def battle():
         # Check if enemy is defeated
         if enemy_HP <= 0:
             fade_to_black(screen, width, height)
-            if player_data["completed_stages"] < 7:
+            if player_data["completed_stages"] < 8:
                 with open('player_data.json', 'w') as json_file:
                     player_data["completed_stages"] += 1
                     json.dump(player_data, json_file)

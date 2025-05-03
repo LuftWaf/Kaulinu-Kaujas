@@ -159,7 +159,7 @@ def battle():
                     last_click_time = current_time
                     dice_playing = True
                     dice_visible = False
-                    value = random.randint(1, 6)  # 1 = 2DMG, 2 = HEART, 3 = -1Heart, 4 = SHIELD, 5 = Damage, 6 = Miss
+                    value = random.randint(1, 10)  # 1 = 2DMG, 2 = HEART, 3 = -1Heart, 4 = SHIELD, 5 = Damage, 6 = Miss
                     current_dice_frame = 0
                     dice_frame_counter = 0
                     show_result_delay = 0
@@ -187,10 +187,13 @@ def battle():
                 if (current_time - last_click_time > 1200 and 
                     not dice_playing and 
                     not slash_playing):
-                        fade_to_black(screen, width, height)
-                        pygame.quit()
-                        subprocess.run(["python", "defeat.py"])
-                        sys.exit()
+                    fade_to_black(screen, width, height)
+                    with open('player_data.json', 'w') as json_file:
+                        player_data["completed_stages"] -= 2
+                        json.dump(player_data, json_file)
+                    pygame.quit()
+                    subprocess.run(["python", "defeat.py"])
+                    sys.exit()
         
         # Handle dice animation
         if dice_playing:
@@ -201,10 +204,10 @@ def battle():
                 if current_dice_frame >= len(dice_frames):
                     dice_playing = False
                     dice_visible = True
-                    if value == 1:
+                    if value == 1 or value == 8:
                         show_result_delay = 40  # ~0.5 seconds delay
                         pending_enemy_damage = 2  # 2 damage to enemy (applied after slash)
-                    if value == 5:
+                    if value == 5 or value == 9:
                         show_result_delay = 40
                         pending_enemy_damage = 1  # 1 damage to enemy (applied after slash)
             
@@ -214,9 +217,9 @@ def battle():
 
         # Show static dice result
         if dice_visible and not dice_playing:
-            if value == 1:
+            if value == 1 or value == 8:
                 screen.blit(DMG2, (width//2 + 180, height//2 + 230))
-            elif value == 2:
+            elif value == 2 or value == 7 or value == 10:
                 screen.blit(HEART, (width//2 + 180, height//2 + 230))
                 if not HP_decrease and not HP > 5:
                     HP += 1
@@ -230,7 +233,7 @@ def battle():
                 screen.blit(SHIELD, (width//2 + 180, height//2 + 230))
                 if not shield_active:
                     shield_active = True
-            elif value == 5:
+            elif value == 5 or value == 9:
                 screen.blit(DMG, (width//2 + 180, height//2 + 230))
             elif value == 6:
                 screen.blit(MISS, (width//2 + 180, height//2 + 230))
@@ -239,7 +242,7 @@ def battle():
             
             if show_result_delay > 0:
                 show_result_delay -= 1
-                if show_result_delay == 0 and (value == 1 or value == 5):
+                if show_result_delay == 0 and (value == 1 or value == 5 or value == 8 or value == 9):
                     slash_playing = True
                     current_slash_frame = 0
                     slash_frame_counter = 0
@@ -275,7 +278,7 @@ def battle():
                     if pending_enemy_damage > 0:
                         enemy_HP -= pending_enemy_damage
                         pending_enemy_damage = 0
-                        print(f"Enemy took {pending_enemy_damage} damage! Enemy HP: {enemy_HP}")
+                        print(f"Enemy HP: {enemy_HP}")
             
             # Show current frame
             if current_slash_frame < len(slash_frames):
@@ -294,7 +297,7 @@ def battle():
                     if pending_enemy_damage < 0:
                         HP += pending_enemy_damage  # pending_enemy_damage is negative
                         pending_enemy_damage = 0
-                        print(f"Player took {-pending_enemy_damage} damage! Player HP: {HP}")
+                        print(f"Player HP: {HP}")
             
             # Show current frame
             if current_enemy_attack_frame < len(enemy_attack_frames):
@@ -330,7 +333,7 @@ def battle():
         # Check if enemy is defeated
         if enemy_HP <= 0:
             fade_to_black(screen, width, height)
-            if player_data["completed_stages"] < 1000:
+            if player_data["completed_stages"] < 7: #here is 7 cuz it doesnt allow to go further we dont have 2nd map
                 with open('player_data.json', 'w') as json_file:
                     player_data["completed_stages"] += 1
                     json.dump(player_data, json_file)

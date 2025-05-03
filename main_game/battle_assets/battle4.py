@@ -102,7 +102,7 @@ def battle():
         enemy_attack_frames = load_gif_frames("gif_assets/inverted_slash.gif")
         
         # Enemies
-        enemy = pygame.image.load("enemy_assets/golem.png")
+        enemy = pygame.image.load("enemy_assets/worm.png")
         enemy = pygame.transform.scale(enemy, (400, 550))
       
         # screen.blit(enemy, (width // 2 - enemy.get_width() // 2, height // 2 - 200)) KO SIS KODS SEIT DARA
