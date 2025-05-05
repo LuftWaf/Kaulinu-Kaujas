@@ -286,7 +286,7 @@ def battle():
             # Show current frame
             if current_slash_frame < len(slash_frames):
                 frame = pygame.transform.scale(slash_frames[current_slash_frame], (400, 400))
-                screen.blit(frame, (width//2 + 200, height//2 - 450))
+                screen.blit(frame, (width//2 + 200, height//2 - 350))
 
         # Handle enemy attack animation
         if enemy_attacking:
