@@ -27,7 +27,7 @@ def victory_screen():
     font = pygame.font.Font("font_assets/medieval_font.ttf", 69)
     rules_small_font = pygame.font.Font("font_assets/medieval_font.ttf", 22)
     button_font = pygame.font.Font("font_assets/medieval_font.ttf", 50)
-    motivation_font = pygame.font.Font("font_assets/medieval_font.ttf", 28)
+    motivation_font = pygame.font.Font("font_assets/medieval_font.ttf", 29)
 
      # Load the background image
     try:
@@ -45,7 +45,7 @@ def victory_screen():
 )
     rules_text3 = (
     "2. Kad spēlētājs nonāk cīņas fāzē, var mest kauliņu, kuru uzmetot "
-    "var veikt vienu no darbībām."
+    "veic vienu no darbībām."
 )
     rules_text4 = (
     "3. Ir iespēja uzbrukt pretiniekam 1 reizi, 2 reizes, iegūt sirsniņu, "
@@ -54,12 +54,13 @@ def victory_screen():
 )
     rules_text5 = ( "4. Tad kad spēlētājs ir veiksmīgi uzvarējis cīņu, nonāk atpakaļ kartē un var sākt nākamo līmeni."
 )
-    rules_text6 = ( "5. Kad visi līmeņi ir izieti uz kartes, spēlētājs nonāk "
-    "nākmajā līmeni, bet kartē ir arī bosa līmeņi kuri būs grūtāki."
+    rules_text6 = ( "5. Kad visas cīņas ir uzvarētas pirmā līmeņa kartē, spēlētājs nonāk "
+    "nākmajā kartē, kur būs grūtāk."
 )
     rules_text7 = ("6. Spēlētājs spēli uzvar, ja visus līmeņus ir izgājis, gan pirmo, gan otro karti un izveicis pēdējo bosu. "
 )
-    rules_text8 = ( "7. Spēlētājs spēli zaudē, ja zaudē cīņā visas esošāš sirsniņas,līdz ar  to zaudē vienu sirsniņu, kas ir redzama uz kartes. Zaudējot visas sirsniņas, spēle ir jāsāk no jauna."
+    rules_text8 = ( "7. Spēlētājam jāatkārto cīņa, ja to zaud, līdz uzvarai."
+    " Ja zaud pret Mini Bossu vai Bossu, tiek atgriezts 2 līmeņus atpakaļ."
 )
     rules_text9 = ( "Lai tev veicas izglābt Mālburgu! Tikai tev ir iespēja to izdarīt!")
 
@@ -111,11 +112,11 @@ def victory_screen():
         render_wrapped_text(screen, rules_text2, rules_small_font, WHITE, width // 2 - 480, height // 2 - 300, max_width=700)
         render_wrapped_text(screen, rules_text3, rules_small_font, WHITE, width // 2 - 480, height // 2 - 220, max_width=700)
         render_wrapped_text(screen, rules_text4, rules_small_font, WHITE, width // 2 - 480, height // 2 - 115, max_width=700)
-        render_wrapped_text(screen, rules_text5, rules_small_font, WHITE, width // 2 - 480, height // 2 + 50, max_width=700)
-        render_wrapped_text(screen, rules_text6, rules_small_font, WHITE, width // 2 - 480, height // 2 + 125, max_width=700)
-        render_wrapped_text(screen, rules_text7, rules_small_font, WHITE, width // 2 - 480, height // 2 + 235, max_width=700)
-        render_wrapped_text(screen, rules_text8, rules_small_font, WHITE, width // 2 + 43, height // 2 - 295, max_width=700)
-        render_wrapped_text(screen, rules_text9, motivation_font, GREEN, width // 2 - 10 , height // 2 + 260, max_width=700)
+        render_wrapped_text(screen, rules_text5, rules_small_font, WHITE, width // 2 - 480, height // 2 + 60, max_width=700)
+        render_wrapped_text(screen, rules_text6, rules_small_font, WHITE, width // 2 - 480, height // 2 + 137, max_width=700)
+        render_wrapped_text(screen, rules_text7, rules_small_font, WHITE, width // 2 - 480, height // 2 + 245, max_width=700)
+        render_wrapped_text(screen, rules_text8, rules_small_font, WHITE, width // 2 + 43, height // 2 - 274, max_width=700)
+        render_wrapped_text(screen, rules_text9, motivation_font, GREEN, width // 2 - 30 , height // 2 + 255, max_width=700)
 
         # Button hover effect
         mouse_pos = pygame.mouse.get_pos()
