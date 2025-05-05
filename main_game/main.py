@@ -24,7 +24,7 @@ def battle_phase(ball_number):
     fight_scene = fight_scenes.get(ball_number, None)
     if fight_scene:
         pygame.quit()
-        subprocess.run(["python", fight_scene])  # Run the specific battle scene
+        subprocess.run(["python3", fight_scene])  # Run the specific battle scene
         sys.exit()
     else:
         print(f"No fight scene defined for ball {ball_number}")
