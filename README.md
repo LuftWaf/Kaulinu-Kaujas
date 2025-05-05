@@ -1,5 +1,9 @@
-<h1><strong>Kauliņu Kaujas</strong></h1><br></br>
- 
+<h1><strong><p align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=700&size=37&duration=4000&pause=1500&color=2ECC71&center=true&multiline=true&width=1000&lines=Kauliņu+Kaujas" />
+</p>
+</strong>
+</h1>
+
 <h2><em>Kā spēle darbojas?</em></h2>
 
 <h3>Cīņas fāze:</h3>
