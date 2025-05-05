@@ -2,7 +2,8 @@ import pygame
 import sys
 import main
 import subprocess
-
+import os
+json_file_exists = os.path.exists("player_data.json")
 def start_screen():
     pygame.init()
     width, height = 1440, 900
@@ -52,7 +53,7 @@ def start_screen():
                 running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # Check if the mouse click is within the "Sākt" button area
-                if start_button_rect.collidepoint(event.pos):
+                if start_button_rect.collidepoint(event.pos) and json_file_exists:
                     main.main_game()  # Call the main game function
                     running = False  # Close the start screen
 
@@ -82,7 +83,7 @@ def start_screen():
         # Render the "Sākt" button text
         start_text = small_font.render("Turpināt", True, WHITE)
         screen.blit(start_text, (start_button_x + start_button_width // 2 - start_text.get_width() // 2,
-                                 start_button_y + start_button_height // 2 - start_text.get_height() // 2))
+                                    start_button_y + start_button_height // 2 - start_text.get_height() // 2))
 
 
         # Button hover effect for "Sākt jaunu spēli" button
