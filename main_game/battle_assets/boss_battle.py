@@ -151,7 +151,7 @@ def battle():
                 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # Prevent rapid clicking (300ms cooldown) and check animations
-                if (current_time - last_click_time > 1200 and 
+                if (current_time - last_click_time > 2000 and 
                     not dice_playing and 
                     not slash_playing and 
                     not enemy_attacking and
@@ -184,7 +184,7 @@ def battle():
                 screen.blit(background6, (0, 0))
             if HP == 0:
                 screen.blit(background7, (0, 0))
-                if (current_time - last_click_time > 1200 and 
+                if (current_time - last_click_time > 2000 and 
                     not dice_playing and 
                     not slash_playing):
                     fade_to_black(screen, width, height)

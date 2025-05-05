@@ -155,7 +155,7 @@ def battle():
                 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # Prevent rapid clicking (300ms cooldown) and check animations
-                if (current_time - last_click_time > 1200 and 
+                if (current_time - last_click_time > 2000 and 
                     not dice_playing and 
                     not slash_playing and 
                     not enemy_attacking and
@@ -252,7 +252,7 @@ def battle():
                     slash_frame_counter = 0
             
             # Check if enemy should attack (after every 2 rolls)
-            if roll_count % 2 == 0 and roll_count > 0 and not enemy_attacking and not slash_playing:
+            if roll_count >= 2 and roll_count > 0 and not enemy_attacking and not slash_playing:
                 if enemy_attack_delay <= 0:
                     enemy_attack_delay = 60  # ~1 second delay before enemy attacks
                 else:
