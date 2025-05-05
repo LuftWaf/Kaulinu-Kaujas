@@ -20,7 +20,7 @@ def start_screen():
 
     # Set up fonts
     font = pygame.font.Font("font_assets/medieval_font.ttf", 74)
-    small_font = pygame.font.Font("font_assets/medieval_font.ttf", 40)
+    small_font = pygame.font.Font("font_assets/medieval_font.ttf", 38)
     
     # Render the title text
     title_text = font.render("Kauliņu Kaujas", True, BLACK)
@@ -38,25 +38,7 @@ def start_screen():
     start_button_y = height // 2 - start_button_height // 2 - 280  # Move up to make space for the second button
     start_button_rect = pygame.Rect(start_button_x, start_button_y, start_button_width, start_button_height)
 
-    #  "Victory" button rectangle
-    victory_button_width, victory_button_height = 200, 100
-    victory_button_x = width // 1.1 - victory_button_width // 2
-    victory_button_y = height // 8 - victory_button_height // 2 + 50  # Move down to make space for the first button
-    victory_button_rect = pygame.Rect(victory_button_x, victory_button_y, victory_button_width, victory_button_height)
-
-    #  "End" button rectangle
-    end_button_width, end_button_height = 500, 100
-    end_button_x = width // 1 - end_button_width // 2 - 280
-    end_button_y = height // 8 - end_button_height // 2 + 160  # Move down to make space for the first button
-    end_button_rect = pygame.Rect(end_button_x, end_button_y, end_button_width, end_button_height)
-
-    #  "Defeat" button rectangle
-    defeat_button_width, defeat_button_height = 230, 100
-    defeat_button_x = width // 1 - defeat_button_width // 2 - 145
-    defeat_button_y = height // 8 - defeat_button_height // 2 + 270  # Move down to make space for the first button
-    defeat_button_rect = pygame.Rect(defeat_button_x, defeat_button_y, defeat_button_width, defeat_button_height)
-
-     #  "Rules" button rectangle
+    #  "Sākt jaunu spēli" button rectangle
     rules_button_width, rules_button_height = 280, 100
     rules_button_x = width // 2 - rules_button_width // 2
     rules_button_y = height // 2 - rules_button_height // 2 - 150  # Move down to make space for the first button
@@ -73,24 +55,9 @@ def start_screen():
                 if start_button_rect.collidepoint(event.pos):
                     main.main_game()  # Call the main game function
                     running = False  # Close the start screen
-                # Check if the mouse click is within the "Victory Screen" button area
-                elif victory_button_rect.collidepoint(event.pos):
-                    pygame.quit()
-                    subprocess.run(["python3", "victory.py"])  # Run the victory.py script
-                    sys.exit()
-
-                elif end_button_rect.collidepoint(event.pos):
-                    pygame.quit()
-                    subprocess.run(["python3", "game_end_final.py"]) # run the end game scene that appears after a boss has defeated the player
-                    sys.exit()
-
-                elif defeat_button_rect.collidepoint(event.pos):
-                    pygame.quit()
-                    subprocess.run(["python3", "defeat.py"]) # run the defeat game scene that appears after the player's hearts have run out
-                    sys.exit()
 
                 elif rules_button_rect.collidepoint(event.pos):
-                      # Reset player data
+                    # Reset player data
                     pygame.quit()
                     subprocess.run(["python3", "tutorial.py"]) # run the tutorial game scene
                     sys.exit()
@@ -116,57 +83,17 @@ def start_screen():
         start_text = small_font.render("Turpināt", True, WHITE)
         screen.blit(start_text, (start_button_x + start_button_width // 2 - start_text.get_width() // 2,
                                  start_button_y + start_button_height // 2 - start_text.get_height() // 2))
-        # Render the "End" button text
-        end_text = small_font.render("Spēles Bossa Zaudējums", True, WHITE)
-        screen.blit(end_text, (end_button_x + end_button_width // 2 - end_text.get_width() // 2,
-                                 end_button_y + end_button_height // 2 - end_text.get_height() // 2))
-        # Render the "Defeat" button text
-        defeat_text = small_font.render("Zaudējums", True, WHITE)
-        screen.blit(end_text, (defeat_button_x + defeat_button_width // 2 - defeat_text.get_width() // 2,
-                                 defeat_button_y + defeat_button_height // 2 - defeat_text.get_height() // 2))
 
-        # Button hover effect for "Victory Screen" button
-        if victory_button_rect.collidepoint(mouse_pos):
-            pygame.draw.rect(screen, GENERAL_HOVER_COLOR, victory_button_rect)  # Hover color
-        else:
-            pygame.draw.rect(screen, GENERAL_BUTTON_COLOR, victory_button_rect)  # Default color
 
-        # Button hover effect for "End" button
-        if end_button_rect.collidepoint(mouse_pos):
-            pygame.draw.rect(screen, GENERAL_HOVER_COLOR, end_button_rect)  # Hover color
-        else:
-            pygame.draw.rect(screen, GENERAL_BUTTON_COLOR, end_button_rect)  # Default color
-
-        # Button hover effect for "Defeat" button
-        if defeat_button_rect.collidepoint(mouse_pos):
-            pygame.draw.rect(screen, GENERAL_HOVER_COLOR, defeat_button_rect)  # Hover color
-        else:
-            pygame.draw.rect(screen, GENERAL_BUTTON_COLOR, defeat_button_rect)  # Default color
-
-         # Button hover effect for "Rules" button
+        # Button hover effect for "Sākt jaunu spēli" button
         if rules_button_rect.collidepoint(mouse_pos):
             pygame.draw.rect(screen, GENERAL_HOVER_COLOR, rules_button_rect)  # Hover color
         else:
             pygame.draw.rect(screen, GENERAL_BUTTON_COLOR, rules_button_rect)  # Default color
 
-
-        # Render the "Victory Screen" button text
-        victory_text = small_font.render("Victory", True, WHITE)
-        screen.blit(victory_text, (victory_button_x + victory_button_width // 2 - victory_text.get_width() // 2,
-                                   victory_button_y + victory_button_height // 2 - victory_text.get_height() // 2))
         
-        # Render the "End" button text
-        end_text = small_font.render("Spēles Bossa Zaudējums", True, WHITE)
-        screen.blit(end_text, (end_button_x + end_button_width // 2 - end_text.get_width() // 2,
-                                   end_button_y + end_button_height // 2 - end_text.get_height() // 2))
-        
-        # Render the "Defeat" button text
-        end_text = small_font.render("Zaudējums", True, WHITE)
-        screen.blit(end_text, (defeat_button_x + defeat_button_width // 2 - defeat_text.get_width() // 2,
-                                   defeat_button_y + defeat_button_height // 2 - defeat_text.get_height() // 2))
-        
-         # Render the "Rules" button text
-        rules_text = small_font.render("Sākt no jauna", True, WHITE)
+         # Render the "Sākt jaunu spēli" button text
+        rules_text = small_font.render("Sākt jaunu spēli", True, WHITE)
         screen.blit(rules_text, (rules_button_x + rules_button_width // 2 - rules_text.get_width() // 2,
                                    rules_button_y + rules_button_height // 2 - rules_text.get_height() // 2))
 
